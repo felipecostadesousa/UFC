@@ -31,12 +31,24 @@ async def coletar_lutadores():
         break
       await botao_next.click()
       await pagina.wait_for_timeout(1000)
+    paragrafos = await pagina.query_selector_all("p")
+    for p in paragrafos:
+      texto = await p.inner_text()
+      if "Fighters with booked bouts not yet listed:" in texto or "Fighters also not yet listed:" in texto:
+        partes = texto.split(":")
+        if len(partes) > 1:
+          nomes_brutos = partes[1].split(",")
+          for nome in nomes_brutos:
+            nome_limpo = remover_emojis(nome.strip())
+            lutadores.add(nome_limpo)
     await navegador.close()
-    lutadores_adicionais = ["Andreas Gustafsson", "Jeka Saragih", "Seok Hyun Ko", "Tofiq Musayev", "Lauren Murphy", "Islam Dulatov", "Alberto Montes", "Austin Bashi", "Austin Vanderford", "Djorden Santos", "Kevin Christian", "Nikolay Veretennikov", "Tuco Tokkos", "Uran Satybaldiev", "Yadier DelValle"]
-    for nome in lutadores_adicionais:
-      lutadores.add(remover_emojis(nome.strip()))
     with open("lutadores.txt", "w", encoding="utf-8") as f:
       for nome in sorted(lutadores):
+        if(nome == 'Bruno Gustavo da Silva'):
+          nome = 'Bruno Silva'
+        if(nome == 'Elizeu Zaleski dos Santos'):
+          nome = 'Elizeu dos Santos'
+        if(nome == 'Douglas Silva de Andrade'):
+          continue
         f.write(nome + "\n")
-    print(f"Total de lutadores encontrados (incluindo adicionais): {len(lutadores)}")
 asyncio.run(coletar_lutadores())

@@ -1,13 +1,8 @@
-from getLutador import getLutador
-from sort import sort
+from coletar_lutadores import coletar_lutadores
+from leitura_lutadores import leitura_lutadores
+from ordenar_lutadores import ordenar_lutadores
+import asyncio
 
-with open("lutadores.txt") as lutadores:
-  for lutador in lutadores:
-    nome = lutador.strip().split()
-    if(len(nome) == 1):
-      getLutador(nome[0], '', '')
-    if(len(nome) == 2):
-      getLutador(nome[0], '', nome[1])
-    elif(len(nome) == 3):
-      getLutador(nome[0], nome[1], nome[2])
-sort()
+asyncio.run(coletar_lutadores())
+leitura_lutadores()
+ordenar_lutadores()
