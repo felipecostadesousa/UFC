@@ -48,6 +48,10 @@ async def coletar_lutadores():
           nome = 'Bruno Silva'
         if(nome == 'Elizeu Zaleski dos Santos'):
           nome = 'Elizeu dos Santos'
+        if(nome == "Lone'er Kavanagh"):
+          nome = 'Loneer Kavanagh'
+        if(nome == 'Yadier DelValle'):
+          nome = 'Yadier Del Valle'
         if(nome == 'Douglas Silva de Andrade'):
           continue
         f.write(nome + "\n")

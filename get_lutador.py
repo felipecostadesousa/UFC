@@ -10,10 +10,14 @@ def get_lutador(firstName, middleName, lastName):
   nome = " ".join(part for part in [firstName, middleName, lastName] if part)
   if response.status_code == 200:
     if(response.json()["record"]["losses"] == 0):
-      print(f"✅ {nome} ({response.json()['record']['wins']})")
-      f = open("/home/felipe-costa/Documentos/Python/invictos.txt", "a")
-      f.write(f"{nome} ({response.json()['record']['wins']})\n")
-      f.close()
+      if(not((nome == 'Alberto Montes') or (nome == 'Islam Dulatov') or (nome == 'Kevin Christian') or (nome == 'Seokhyeon Ko'))):
+        print(f"✅ {nome} ({response.json()['record']['wins']})")
+        f = open("/home/felipe-costa/Documentos/Python/invictos.txt", "a")
+        if(nome == "DongHun Choi"):
+          f.write(f"{nome} (9)\n")
+        else:
+          f.write(f"{nome} ({response.json()['record']['wins']})\n")
+        f.close()
     else:
       print(f"❌ {nome} ({response.json()['record']['wins']} - {response.json()['record']['losses']})")
   else:
